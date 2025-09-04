@@ -1,26 +1,13 @@
 # Use a minimal Linux base image
 FROM ubuntu:22.04
 
-# Install required packages and clean up
+# Install required packages including OpenJDK 21 and cron
 RUN apt-get update && \
-    apt-get install -y tar cron wget sha256sum && \
+    apt-get install -y openjdk-21-jdk cron && \
     rm -rf /var/lib/apt/lists/*
 
-# Set working directory for JDK
-WORKDIR /opt/jdk
-
-# Copy your local JDK tar.gz into the image
-COPY jdk-24_linux-aarch64_bin.tar.gz /tmp/jdk.tar.gz
-
-# Verify SHA256 checksum
-RUN echo "b4e4273c290c7cecdab499fb0729ce9e4bf92de54e109c4f5a942a30e63d0311  /tmp/jdk.tar.gz" | sha256sum -c -
-
-# Extract JDK
-RUN tar -xzf /tmp/jdk.tar.gz --strip-components=1 -C /opt/jdk && \
-    rm -f /tmp/jdk.tar.gz
-
 # Set JAVA_HOME and PATH
-ENV JAVA_HOME=/opt/jdk
+ENV JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64
 ENV PATH="$JAVA_HOME/bin:$PATH"
 
 # Verify Java installation
