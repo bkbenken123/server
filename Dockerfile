@@ -1,7 +1,7 @@
 # Use a minimal Linux base image
 FROM ubuntu:22.04
 
-# Install required packages and clean up to reduce image size
+# Install required packages and clean up
 RUN apt-get update && \
     apt-get install -y tar cron && \
     rm -rf /var/lib/apt/lists/*
@@ -10,11 +10,11 @@ RUN apt-get update && \
 WORKDIR /opt/jdk
 
 # Copy your local JDK tar.gz into the image
-COPY jdk-24_linux-aarch64_bin.tar.gz /tmp/jdk-24_linux-aarch64_bin.tar.gz
+COPY jdk-24_linux-aarch64_bin.tar.gz /tmp/jdk.tar
 
-# Extract JDK
-RUN tar -xzf /tmp/jdk-24_linux-aarch64_bin.tar.gz --strip-components=1 -C /opt/jdk && \
-    rm -f /tmp/jdk-24_linux-aarch64_bin.tar.gz
+# Extract JDK (plain tar, not gzip)
+RUN tar -xf /tmp/jdk.tar --strip-components=1 -C /opt/jdk && \
+    rm -f /tmp/jdk.tar
 
 # Set JAVA_HOME and PATH
 ENV JAVA_HOME=/opt/jdk
