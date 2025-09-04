@@ -1,26 +1,18 @@
-# Debian base so apt-get works
-FROM debian:bookworm-slim
+# Set working directory for JDK
+WORKDIR /opt/jdk
 
-# Install dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    ca-certificates curl git cron bash \
- && rm -rf /var/lib/apt/lists/*
+# Copy JDK tar.gz from the repo into the image
+COPY jdk-24_linux-aarch64_bin.tar.gz /tmp/jdk.tgz
 
-# Install JDK 24 from tar.gz
-# Set JDK_URL to the correct architecture:
-# - ARM64: https://download.java.net/java/GA/jdk24/latest/binaries/jdk-24_linux-aarch64_bin.tar.gz
-# - x86_64: https://download.java.net/java/GA/jdk24/latest/binaries/jdk-24_linux-x64_bin.tar.gz
-ENV JAVA_HOME=/opt/jdk
-ENV PATH="$JAVA_HOME/bin:${PATH}"
-ARG JDK_URL="https://download.java.net/java/GA/jdk24/latest/binaries/jdk-24_linux-aarch64_bin.tar.gz"
-RUN set -eux; \
-    mkdir -p /opt/jdk; \
-    curl -fsSL "$JDK_URL" -o /tmp/jdk.tgz; \
-    tar -xzf /tmp/jdk.tgz -C /opt/jdk --strip-components=1; \
-    rm -f /tmp/jdk.tgz; \
-    java -version
+# Extract JDK
+RUN mkdir -p /opt/jdk && \
+    tar -xzf /tmp/jdk.tgz -C /opt/jdk --strip-components=1 && \
+    rm -f /tmp/jdk.tgz
 
-# Set working directory
+# Verify Java installation
+RUN java -version
+
+# Set working directory for server
 WORKDIR /app
 
 # Copy server folder into container
