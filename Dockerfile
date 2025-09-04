@@ -10,11 +10,11 @@ RUN apt-get update && \
 WORKDIR /opt/jdk
 
 # Copy your local JDK tar.gz into the image
-COPY jdk-24_linux-aarch64_bin.tar.gz /tmp/jdk.tgz
+COPY jdk-24_linux-aarch64_bin.tar.gz /tmp/jdk-24_linux-aarch64_bin.tar.gz
 
-# Extract JDK (auto-detect archive type)
-RUN tar -xf /tmp/jdk.tgz --strip-components=1 -C /opt/jdk && \
-    rm -f /tmp/jdk.tgz
+# Extract JDK
+RUN tar -xzf /tmp/jdk-24_linux-aarch64_bin.tar.gz --strip-components=1 -C /opt/jdk && \
+    rm -f /tmp/jdk-24_linux-aarch64_bin.tar.gz
 
 # Set JAVA_HOME and PATH
 ENV JAVA_HOME=/opt/jdk
