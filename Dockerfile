@@ -5,7 +5,7 @@ FROM ubuntu:22.04
 RUN apt-get update && \
     apt-get install -y openjdk-21-jdk cron && \
     rm -rf /var/lib/apt/lists/*
-    sudo apt install openjdk-21-jdk
+    apt install openjdk-21-jdk
 
 # Set JAVA_HOME and PATH
 ENV JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64
