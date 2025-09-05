@@ -32,6 +32,3 @@ RUN echo "*/5 * * * * /usr/local/bin/backup.sh fast >> /var/log/cron.log 2>&1" >
 
 # Expose internal port
 EXPOSE 25565
-
-# Start cron in foreground and run server
-CMD ["sh", "-c", "cron && /app/run.sh"]
