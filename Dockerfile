@@ -34,7 +34,7 @@ ENV JVM_OPTS="-Xmx480M -Xms128M"
 # Expose default Minecraft port
 EXPOSE 25565
 
-echo "eula=true" > eula.txt
+RUN echo "eula=true" > eula.txt
 
 # Start server
 CMD ["sh", "-c", "java $JVM_OPTS -jar server.jar nogui"]
