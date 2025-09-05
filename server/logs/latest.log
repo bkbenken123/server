@@ -1,23 +1,18 @@
-[21:02:20] [ServerMain/INFO]: Environment: Environment[sessionHost=https://sessionserver.mojang.com, servicesHost=https://api.minecraftservices.com, name=PROD]
-[21:02:27] [ServerMain/INFO]: Loaded 1407 recipes
-[21:02:27] [ServerMain/INFO]: Loaded 1520 advancements
-[21:02:28] [Server thread/INFO]: Starting minecraft server version 1.21.8
-[21:02:28] [Server thread/INFO]: Loading properties
-[21:02:28] [Server thread/INFO]: Default game type: SURVIVAL
-[21:02:28] [Server thread/INFO]: Generating keypair
-[21:02:28] [Server thread/INFO]: Starting Minecraft server on *:25565
-[21:02:28] [Server thread/INFO]: Using default channel type
-[21:02:29] [Server thread/INFO]: Preparing level "world"
-[21:02:30] [Server thread/INFO]: Preparing start region for dimension minecraft:overworld
-[21:02:35] [Worker-Main-3/INFO]: Preparing spawn area: 0%
-[21:02:35] [Worker-Main-3/INFO]: Preparing spawn area: 0%
-[21:02:35] [Worker-Main-3/INFO]: Preparing spawn area: 0%
-[21:02:35] [Worker-Main-3/INFO]: Preparing spawn area: 0%
-[21:02:35] [Worker-Main-3/INFO]: Preparing spawn area: 0%
-[21:02:35] [Worker-Main-3/INFO]: Preparing spawn area: 0%
-[21:02:35] [Worker-Main-3/INFO]: Preparing spawn area: 0%
-[21:02:35] [Worker-Main-3/INFO]: Preparing spawn area: 0%
-[21:02:35] [Worker-Main-3/INFO]: Preparing spawn area: 0%
-[21:02:35] [Worker-Main-1/INFO]: Preparing spawn area: 75%
-[21:02:35] [Server thread/INFO]: Time elapsed: 4669 ms
-[21:02:35] [Server thread/INFO]: Done (5.963s)! For help, type "help"
+[21:06:37] [ServerMain/INFO]: Environment: Environment[sessionHost=https://sessionserver.mojang.com, servicesHost=https://api.minecraftservices.com, name=PROD]
+[21:06:42] [ServerMain/INFO]: Loaded 1407 recipes
+[21:06:42] [ServerMain/INFO]: Loaded 1520 advancements
+[21:06:42] [Server thread/INFO]: Starting minecraft server version 1.21.8
+[21:06:42] [Server thread/INFO]: Loading properties
+[21:06:42] [Server thread/INFO]: Default game type: SURVIVAL
+[21:06:42] [Server thread/INFO]: Generating keypair
+[21:06:43] [Server thread/INFO]: Starting Minecraft server on *:25565
+[21:06:43] [Server thread/INFO]: Using default channel type
+[21:06:43] [Server thread/INFO]: Preparing level "world"
+[21:06:43] [Server thread/INFO]: Preparing start region for dimension minecraft:overworld
+[21:06:46] [Worker-Main-2/INFO]: Preparing spawn area: 0%
+[21:06:46] [Worker-Main-2/INFO]: Preparing spawn area: 0%
+[21:06:46] [Worker-Main-2/INFO]: Preparing spawn area: 0%
+[21:06:46] [Worker-Main-2/INFO]: Preparing spawn area: 0%
+[21:06:46] [Worker-Main-2/INFO]: Preparing spawn area: 0%
+[21:06:46] [Server thread/INFO]: Time elapsed: 2543 ms
+[21:06:46] [Server thread/INFO]: Done (3.079s)! For help, type "help"
