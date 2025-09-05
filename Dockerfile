@@ -1,7 +1,7 @@
 # Use a minimal Linux base image
 FROM ubuntu:22.04
 
-# Install OpenJDK 21, curl, and ngrok
+# Install OpenJDK 21, curl, unzip
 RUN apt-get update && \
     apt-get install -y openjdk-21-jdk curl unzip && \
     rm -rf /var/lib/apt/lists/*
@@ -18,6 +18,11 @@ RUN curl -L -o server.jar https://piston-data.mojang.com/v1/objects/6bce4ef400e4
 
 # Accept EULA automatically
 RUN echo "eula=true" > eula.txt
+
+# Install ngrok manually
+RUN curl -sSL https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.zip -o /tmp/ngrok.zip && \
+    unzip /tmp/ngrok.zip -d /usr/local/bin && \
+    rm /tmp/ngrok.zip
 
 # Expose Minecraft default port (internal only)
 EXPOSE 25565
