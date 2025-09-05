@@ -1,6 +1,8 @@
 # Use OpenJDK 21 slim as base
 FROM openjdk:21-jdk-slim
 
+
+
 # Set working directory
 WORKDIR /app
 
@@ -24,11 +26,15 @@ RUN curl -s https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-stable-linux-amd64.zip -o
     && rm ngrok.zip \
     && if [ -n "$NGROK_AUTHTOKEN" ]; then ngrok config add-authtoken $NGROK_AUTHTOKEN; fi
 
+
+
 # Set Java options (optional)
 ENV JVM_OPTS="-Xmx480M -Xms128M"
 
 # Expose default Minecraft port
 EXPOSE 25565
+
+echo "eula=true" > eula.txt
 
 # Start server
 CMD ["sh", "-c", "java $JVM_OPTS -jar server.jar nogui"]
