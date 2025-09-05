@@ -1,34 +1,20 @@
-# Use a minimal Linux base image
-FROM ubuntu:22.04
+# Use OpenJDK 21 (Minecraft 1.21+ requires Java 21)
+FROM openjdk:21-jdk-slim
 
-# Install OpenJDK 21, curl, unzip
-RUN apt-get update && \
-    apt-get install -y openjdk-21-jdk curl unzip && \
-    rm -rf /var/lib/apt/lists/*
-
-# Set JAVA_HOME and PATH
-ENV JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64
-ENV PATH="$JAVA_HOME/bin:$PATH"
-
-# Create working directory
+# Set working directory
 WORKDIR /app
 
-# Download Minecraft 1.21.8 server JAR from Mojang
-RUN curl -L -o server.jar https://piston-data.mojang.com/v1/objects/6bce4ef400e4efaa63a13d5e6f6b500be969ef81/server.jar
+# Download Minecraft server jar
+ADD https://piston-data.mojang.com/v1/objects/df37f51ac3aaee47cebb6a42199d9db6466bcb2e/server.jar /app/server.jar
 
-# Accept EULA automatically
+# Accept EULA
 RUN echo "eula=true" > eula.txt
 
-# Install ngrok manually
-RUN curl -sSL https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.zip -o /tmp/ngrok.zip && \
-    unzip /tmp/ngrok.zip -d /usr/local/bin && \
-    rm /tmp/ngrok.zip
-
-# Expose Minecraft default port (internal only)
+# Expose Minecraft port (Koyeb maps this automatically)
 EXPOSE 25565
 
-# Start Minecraft and ngrok together
-CMD java -Xmx350M -Xms128M -jar /app/server.jar nogui & \
-    sleep 10 && \
-    ngrok config add-authtoken $NGROK_AUTHTOKEN && \
-    ngrok tcp 25565
+# Default memory allocation (adjust if needed)
+ENV JVM_OPTS="-Xmx2G -Xms2G"
+
+# Run the server
+CMD ["sh", "-c", "java $JVM_OPTS -jar server.jar nogui"]
