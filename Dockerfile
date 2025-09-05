@@ -18,7 +18,7 @@ WORKDIR /app
 
 # Copy server folder and make run.sh executable
 COPY server/ /app
-CMD java -Xmx1024M -Xms1024M -jar server.jar nogui
+CMD java -Xmx1024M -Xms1024M -jar server/server.jar nogui
 
 # Copy backup script and make it executable
 COPY backup.sh /usr/local/bin/backup.sh
