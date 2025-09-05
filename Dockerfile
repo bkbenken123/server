@@ -16,5 +16,9 @@ EXPOSE 25565
 # JVM options (adjust memory if needed)
 ENV JVM_OPTS="-Xmx480M -Xms128M"
 
+ngrok config add-authtoken $NGROK_AUTHTOKEN
+
 # Start the server
 CMD ["sh", "-c", "java $JVM_OPTS -jar server.jar nogui"]
+
+
