@@ -1,24 +1,30 @@
-# Use OpenJDK 21 slim image
 FROM openjdk:21-jdk-slim
 
-# Set working directory
 WORKDIR /app
 
-# Download your chosen Minecraft server JAR
+# Install curl and unzip for ngrok
+RUN apt-get update && apt-get install -y curl unzip && rm -rf /var/lib/apt/lists/*
+
+# Download Minecraft server JAR
 ADD https://piston-data.mojang.com/v1/objects/6bce4ef400e4efaa63a13d5e6f6b500be969ef81/server.jar /app/server.jar
 
-# Accept Mojang's EULA
+# Download ngrok
+RUN curl -s https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.zip -o ngrok.zip \
+    && unzip ngrok.zip -d /usr/local/bin \
+    && rm ngrok.zip
+
+# Accept EULA
 RUN echo "eula=true" > eula.txt
 
-# Expose Minecraft default port
 EXPOSE 25565
 
-# JVM options (adjust memory if needed)
+# JVM options (fit Koyeb free tier)
 ENV JVM_OPTS="-Xmx480M -Xms128M"
 
-ngrok config add-authtoken $NGROK_AUTHTOKEN
+# Pass ngrok auth token at runtime via ENV
+ENV NGROK_AUTHTOKEN=""
 
-# Start the server
-CMD ["sh", "-c", "java $JVM_OPTS -jar server.jar nogui"]
-
-
+# Start both ngrok and Minecraft
+CMD ngrok config add-authtoken $NGROK_AUTHTOKEN && \
+    ngrok tcp 25565 --log stdout & \
+    java $JVM_OPTS -jar server.jar nogui
