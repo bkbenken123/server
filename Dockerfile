@@ -29,7 +29,7 @@ RUN curl -s https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-stable-linux-amd64.zip -o
 
 
 # Set Java options (optional)
-ENV JVM_OPTS="-Xmx480M -Xms128M"
+ENV JVM_OPTS="-Xmx1024M -Xms512M"
 
 # Expose default Minecraft port
 EXPOSE 25565
