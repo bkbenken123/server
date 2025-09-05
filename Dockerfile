@@ -1,20 +1,20 @@
-# Use OpenJDK 21 (Minecraft 1.21+ requires Java 21)
+# Use OpenJDK 21 slim image
 FROM openjdk:21-jdk-slim
 
 # Set working directory
 WORKDIR /app
 
-# Download Minecraft server jar
-ADD https://piston-data.mojang.com/v1/objects/df37f51ac3aaee47cebb6a42199d9db6466bcb2e/server.jar /app/server.jar
+# Download your chosen Minecraft server JAR
+ADD https://piston-data.mojang.com/v1/objects/6bce4ef400e4efaa63a13d5e6f6b500be969ef81/server.jar /app/server.jar
 
-# Accept EULA
+# Accept Mojang's EULA
 RUN echo "eula=true" > eula.txt
 
-# Expose Minecraft port (Koyeb maps this automatically)
+# Expose Minecraft default port
 EXPOSE 25565
 
-# Default memory allocation (adjust if needed)
-ENV JVM_OPTS="-Xmx2G -Xms2G"
+# JVM options (adjust memory if needed)
+ENV JVM_OPTS="-Xmx2G -Xms1G"
 
-# Run the server
+# Start the server
 CMD ["sh", "-c", "java $JVM_OPTS -jar server.jar nogui"]
