@@ -1,9 +1,9 @@
 # Use a minimal Linux base image
 FROM ubuntu:22.04
 
-# Install OpenJDK 21 and curl
+# Install OpenJDK 21, curl, and ngrok
 RUN apt-get update && \
-    apt-get install -y openjdk-21-jdk curl && \
+    apt-get install -y openjdk-21-jdk curl unzip && \
     rm -rf /var/lib/apt/lists/*
 
 # Set JAVA_HOME and PATH
@@ -19,8 +19,11 @@ RUN curl -L -o server.jar https://piston-data.mojang.com/v1/objects/6bce4ef400e4
 # Accept EULA automatically
 RUN echo "eula=true" > eula.txt
 
-# Expose Minecraft default port
+# Expose Minecraft default port (internal only)
 EXPOSE 25565
 
-# Run the Minecraft server
-CMD ["java", "-Xmx350M", "-Xms128M", "-jar", "server.jar", "nogui"]
+# Start Minecraft and ngrok together
+CMD java -Xmx350M -Xms128M -jar /app/server.jar nogui & \
+    sleep 10 && \
+    ngrok config add-authtoken $NGROK_AUTHTOKEN && \
+    ngrok tcp 25565
